@@ -5,12 +5,11 @@ import { SelectMenu } from './components/selectMenu/selectMenu';
 import { ModalForm } from './components/modalForm/modalForm';
 import { ButtonForm } from './components/buttonForm/button';
 import { useScrollBar } from '../../../components/scrollBar/useScrollBar';
-import { addCvData } from '../../../store/actions/cvActions/cvDataActions/cvDataActions';
+import {addCvData, removeCvData} from '../../../store/actions/cvActions/cvDataActions/cvDataActions';
 import { useDispatch, useSelector } from 'react-redux';
 
 export const Modal = ({ type }) => {
   const store = useSelector(store => store?.cvData);
-
   useEffect(() => {
     if (store) {
       console.log(store);
@@ -46,6 +45,7 @@ export const Modal = ({ type }) => {
 
   const handleRemoveList = buttonId => {
     setLists(prev => prev.filter(item => item.key !== buttonId));
+    dispatch(removeCvData(buttonId))
   };
 
   const handleSubmit = e => {

@@ -27,7 +27,7 @@ export const ModalInputForm = ({
   register,
   ...props
 }) => {
-  const [error, setError] = useState(false);
+  // const [error, setError] = useState(false);
   const addFieldsHandler = e => {
     const buttonId = Number(e.target.closest('button').id);
 
@@ -97,7 +97,6 @@ export const ModalInputForm = ({
       );
     });
   };
-
   return (
     <ModalInputFormWrapper>
       <label htmlFor={path} className={isNewField && 'active'}>
@@ -119,7 +118,7 @@ export const ModalInputForm = ({
             })}
           />
 
-          {!isNewField && (
+          {!isNewField && multi && (
             <ButtonForm
               content="+"
               circle="height"
@@ -134,7 +133,7 @@ export const ModalInputForm = ({
           {isNewField && (
             <ButtonForm
               circle="height"
-              content="-"
+              content="-"modalForm
               margin="0 0 0 10px"
               colorStart="rgb(255, 0, 0)"
               colorEnd="tomato"
