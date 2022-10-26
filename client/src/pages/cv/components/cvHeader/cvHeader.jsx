@@ -1,7 +1,7 @@
 import React from 'react';
 import { CvHeaderWrapper } from './cvHeaderStyle';
 import { useState } from 'react';
-import { ButtonForm } from '../../modal/components/buttonForm/button';
+import { ButtonForm } from '../../../modal/components/buttonForm/button';
 
 export const CvHeader = () => {
   const [form, setForm] = useState({});
@@ -21,7 +21,7 @@ export const CvHeader = () => {
 
   return (
     <CvHeaderWrapper>
-      {/*<modalInputForm type="file" accept="image/*, .png, .jpeg, .gif, .web " onChange={e => handleImg(e)} />*/}
+      {/*<modalInput type="file" accept="image/*, .png, .jpeg, .gif, .web " onChange={e => handleImg(e)} />*/}
     </CvHeaderWrapper>
   );
 };

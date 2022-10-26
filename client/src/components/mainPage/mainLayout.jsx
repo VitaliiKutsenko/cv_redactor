@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getTokenStatus } from '../../helper';
 import { NavigationBar } from '../navigationBar/navigationBar';
 import { MainLayoutWrapper } from './mainLayoutStyle';
-import { Loader } from '../loader/loader';
 
 export const MainLayout = () => {
   const [responseStatus, setResponseStatus] = useState(false);
@@ -30,7 +29,6 @@ export const MainLayout = () => {
   return (
     <MainLayoutWrapper>
       <NavigationBar />
-      {removeLoader && <Loader responseStatus={responseStatus} />}
       <Outlet />
     </MainLayoutWrapper>
   );
