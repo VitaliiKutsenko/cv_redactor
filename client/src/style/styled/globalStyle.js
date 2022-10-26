@@ -1,7 +1,7 @@
 import { createGlobalStyle } from 'styled-components';
-import groteskWOFF2 from './../../public/fonts/NeueHaasDisplay-Roman.woff2';
-import groteskWOFF from './../../public/fonts/NeueHaasDisplay-Roman.woff';
-import groteskTTF from './../../public/fonts/NeueHaasDisplay-Roman.ttf';
+import groteskWOFF2 from '../../../public/fonts/NeueHaasDisplay-Roman.woff2';
+import groteskWOFF from '../../../public/fonts/NeueHaasDisplay-Roman.woff';
+import groteskTTF from '../../../public/fonts/NeueHaasDisplay-Roman.ttf';
 import 'overlayscrollbars/overlayscrollbars.css';
 
 export const GlobalStyleComponent = createGlobalStyle`

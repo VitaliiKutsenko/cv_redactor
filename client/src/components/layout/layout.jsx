@@ -1,5 +1,5 @@
 import React from 'react';
-import { GlobalStyleComponent } from '../../styled/globalStyle';
+import { GlobalStyleComponent } from '../../style/styled/globalStyle';
 import Header from '../header/header';
 import { ErrorBoundary } from '../errorBoundary/errorBoundary';
 import { Outlet } from 'react-router-dom';

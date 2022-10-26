@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { theme } from '../../theme/theme';
+import { theme } from '../../style/theme/theme';
 
 export const PageWrapper = styled.div`
   display: flex;
