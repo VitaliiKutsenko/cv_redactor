@@ -1,115 +1,81 @@
-import React, { useCallback, useEffect, useState, useRef } from 'react';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
 import Arrow from '../../../../../public/svg/Arrow.svg';
 import { FormProvider, useFieldArray, useForm } from 'react-hook-form';
-
 import { ModalInputForm } from '../modalInput/modalInputForm';
 import { ModalFormWrapper } from './modalFormStyled';
-import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { ButtonForm } from '../buttonForm/button';
-import { useScrollBar } from '../../../../components/scrollBar/useScrollBar';
-import { modalFieldsSchema } from '../../schema/modalFields';
+import { addCvData } from '../../../../store/actions/cvActions/cvDataActions/cvDataActions';
+import { FormHeader } from '../formButtonMenu/formHeader';
 
-export const ModalForm = ({ path, id, name, handleRemoveList, onSubmit, ...props }) => {
-  console.log(path);
+export const ModalForm = ({
+  path,
+  id,
+  fieldsList,
+  onSubmit,
+  handleAdditionalField,
+  state,
+  ...props
+}) => {
+  const addFieldDispatch = useDispatch();
   const formMethods = useForm({
     mode: 'onChange',
-    defaultValues: { [path]: modalFieldsSchema[path] },
+    defaultValues: { [path]: fieldsList },
   });
 
-  const { control, handleSubmit } = formMethods;
-  const { fields, append, prepend, remove, swap, move, insert } = useFieldArray({
-    control, // control props comes from useForm (optional: if you are using FormContext)
-    name: path, // unique name for your Field Array
+  const {
+    control,
+    handleSubmit,
+    getValues,
+    formState: { isDirty },
+  } = formMethods;
+  const { fields } = useFieldArray({
+    control,
+    name: path,
   });
-  const [fieldsState, setFieldsState] = useState([]);
-  const [showForm, setShowForm] = useState(true);
 
-  const renderInput = (fields = []) => {
-    return fields.map((field, index) => {
-      return <ModalInputForm path={path} key={field.id} fieldIndex={index} {...field} />;
-    });
-  };
-
-  const getSubmitData = useCallback(inputField => {
+  const getSubmitData = inputField => {
     onSubmit({
       id,
       path,
       inputField,
     });
-  });
-
-  const handleRemoveForm = e => {
-    e.stopPropagation();
-    const buttonId = e.target.closest('button').id;
-
-    // handleRemoveList(buttonId);
   };
 
-  const handleShowForm = e => {
-    setShowForm(prev => !prev);
+  useEffect(() => {
+    if (isDirty) {
+      addFieldDispatch(
+        addCvData({
+          id,
+          path,
+          value: getValues(path),
+        })
+      );
+    }
+  }, [isDirty]);
+
+  const renderInput = (fields = []) => {
+    return fields.map((field, index) => {
+      return <ModalInputForm path={path} key={field.id} id={id} fieldIndex={index} {...field} />;
+    });
   };
 
   return (
     <FormProvider {...formMethods}>
       <ModalFormWrapper>
-        <div className={`form_wrapper ${showForm ? 'show' : 'hidden'}`}>
-          <div className={`form_label ${showForm ? 'show' : 'hidden'}`}>
-            {name}
-            <div className="buttonForm_wrapper">
-              {showForm && (
-                <ButtonForm
-                  colorStart="white"
-                  id={id}
-                  onClick={e => handleRemoveForm(e)}
-                  content="Remove"
-                />
-              )}
-              <ButtonForm
-                colorStart="white"
-                colorEnd="orange"
-                id={id}
-                content="Edit"
-                onClick={e => handleShowForm(e)}
-              />
-            </div>
+        <FormHeader label={state} handleAdditionalField={handleAdditionalField} />
+        <form onSubmit={handleSubmit(getSubmitData)}>
+          <ul>{renderInput(fields)}</ul>
+          <div className="form_button__wrapper">
+            <ButtonForm
+              className="form_button__submit"
+              type="submit"
+              content="Confirm"
+              {...props}
+            />
           </div>
-          {showForm && (
-            <form onSubmit={handleSubmit(getSubmitData)}>
-              <ul>{renderInput(fields)}</ul>
-              <div className="form_button__wrapper">
-                <ButtonForm
-                  colorStart="white"
-                  colorEnd="cyan"
-                  className="form_button__presentation"
-                  content="Show"
-                />
-                <ButtonForm
-                  colorStart="white"
-                  colorEnd="rgba(100, 85, 194, 0.50)"
-                  className="form_button__submit"
-                  type="submit"
-                  content="Отправить"
-                  {...props}
-                >
-                  <svg>{<Arrow />}</svg>
-                </ButtonForm>
-              </div>
-            </form>
-          )}
-        </div>
+        </form>
       </ModalFormWrapper>
     </FormProvider>
   );
 };
-
-// FormComponent.propTypes = {
-//   titleText: PropTypes.string.isRequired,
-//   buttonText: PropTypes.string.isRequired,
-//   onSubmit: PropTypes.func.isRequired,
-//   inputContent: PropTypes.arrayOf(
-//     PropTypes.shape({
-//       inputType: PropTypes.string.isRequired,
-//       labelText: PropTypes.string.isRequired,
-//     }).isRequired
-//   ).isRequired,
-// };

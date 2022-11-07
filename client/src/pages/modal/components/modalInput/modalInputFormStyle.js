@@ -10,7 +10,7 @@ export const ModalInputFormWrapper = styled.li`
   margin: 10px;
   border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 10px;
-  padding: 5px;
+  padding: 10px;
 
   & .modalFields_header {
     width: 100%;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Navigate, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import { PublicRoute } from '../components/hoc/PublicRoute';
 import { Registration } from '../pages/auth/registration/registration';
 import { SignIn } from '../pages/auth/signIn/signIn';

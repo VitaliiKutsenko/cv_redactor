@@ -1,21 +1,11 @@
-import { SET_FIELDS, ADD_FIELDS, REMOVE_FIELDS } from './cvDataActionTypes';
+import { SET_FIELDS, ADD_FIELDS, REMOVE_FIELDS, ADD_NEW_FIELD } from './cvDataActionTypes';
 
-export const setCvData = payload => ({
-  type: SET_FIELDS,
-  payload,
-});
-
-export const addCvData = (
-  payload = {
-    path: '',
-    inputField: '',
-  }
-) => ({
+export const addCvData = payload => ({
   type: ADD_FIELDS,
   payload,
 });
 
-export const removeCvData = payload => ({
-  type: REMOVE_FIELDS,
+export const addAdditionalField = payload => ({
+  type: ADD_NEW_FIELD,
   payload,
 });

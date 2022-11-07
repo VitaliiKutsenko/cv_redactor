@@ -1,10 +1,15 @@
 import React, { useCallback, useEffect, useLayoutEffect, useMemo, useState } from 'react';
 import { SelectMenuWrapper } from './selectMenuStyled';
 import { selectMenuFields } from '../../schema/selectMenuFields';
+import { useNavigate } from 'react-router-dom';
 
 export const SelectMenu = ({ handleAddList, setModalContent, setPath, path }) => {
+  const [active, setActive] = useState('');
+  const navigate = useNavigate();
   const listHandler = e => {
     const select = e.target.closest('li');
+
+    setActive(select.innerText);
 
     if (select) {
       const createPaths = select.innerText
@@ -12,11 +17,9 @@ export const SelectMenu = ({ handleAddList, setModalContent, setPath, path }) =>
         .map(path => path.toLowerCase())
         .join('_');
 
-      setPath(createPaths);
-      setModalContent(false);
+      navigate(createPaths, { state: select.innerText });
 
-      if (path !== createPaths) {
-      }
+      setModalContent(false);
     }
   };
 
@@ -26,7 +29,11 @@ export const SelectMenu = ({ handleAddList, setModalContent, setPath, path }) =>
 
   const renderSelectList = listFields => {
     return listFields.map((field, index) => (
-      <li key={index} className="select_lists" onClick={listHandler}>
+      <li
+        key={index}
+        className={`select_lists ${field === active ? 'active' : 'hide'}`}
+        onClick={listHandler}
+      >
         {field}
       </li>
     ));
