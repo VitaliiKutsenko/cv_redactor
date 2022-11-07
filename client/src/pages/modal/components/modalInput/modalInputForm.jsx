@@ -1,11 +1,9 @@
-import React, { createRef, forwardRef, useCallback, useEffect, useRef, useState } from 'react';
+import React from 'react';
 import { ModalInputFormWrapper } from './modalInputFormStyle';
-import { idGenerator } from '../../helper/modalHelper';
 import { Controller, useFieldArray, useFormContext, useWatch } from 'react-hook-form';
-import ReactDatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { ButtonForm } from '../buttonForm/button';
-import TextareaAutosize from 'react-textarea-autosize';
+import AddFields from '../../../../../public/svg_modal/AddFields.svg';
 import { ModalInputFields } from './modalInputFields/modalInputFields';
 
 export const SocialContext = React.createContext({
@@ -33,14 +31,16 @@ export const ModalInputForm = props => {
       <ModalInputFormWrapper>
         <div className="modalFields_header">
           <h3>{socialName}</h3>
-          <ButtonForm
-            colorStart="green"
-            colorEnd="forestgreen"
-            type="button"
-            onClick={addProfileHandler}
-          >
-            +
-          </ButtonForm>
+          {props.multi && (
+            <ButtonForm
+              colorStart="green"
+              colorEnd="forestgreen"
+              type="button"
+              onClick={addProfileHandler}
+              content={<AddFields />}
+              info="Add new field"
+            />
+          )}
         </div>
         <ul>
           {fields.map((field, index) => {
@@ -48,6 +48,8 @@ export const ModalInputForm = props => {
               <ModalInputFields
                 inputIndex={index}
                 key={field.id}
+                {...props}
+                {...field}
                 name={`${props.path}.${props.fieldIndex}.values.${index}.value`}
               />
             );

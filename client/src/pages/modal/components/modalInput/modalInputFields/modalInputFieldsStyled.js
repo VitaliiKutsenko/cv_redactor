@@ -3,12 +3,12 @@ import styled from 'styled-components';
 export const ModalInputFieldsWrapper = styled.li`
   //width: 50%;
   margin: 10px 0;
-  background: red;
+  //background: red;
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: center;
   & textarea {
-    width: 100%;
+    width: 90%;
     overflow: hidden;
     position: relative;
     background: white;
@@ -17,9 +17,11 @@ export const ModalInputFieldsWrapper = styled.li`
     font-size: 15px;
     outline: none;
     border: 1px solid rgba(0, 0, 0, 0.26);
-    border-radius: 10px;
+    border-radius: 5px;
   }
-  & button div {
-    height: content-box;
+  & button {
+    height: 100%;
+    display: flex;
+    border-radius: 100px;
   }
 `;

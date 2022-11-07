@@ -7,5 +7,7 @@ export const CvMainWrapper = styled.main`
   background: rgba(0, 255, 0, 0.21);
   backdrop-filter: blur(10px);
   border-radius: 10px;
-  overflow-x: hidden;
+  flex-direction: column;
+
+  //overflow-x: hidden;
 `;

@@ -1,22 +1,45 @@
-import { SET_FIELDS } from '../../actions/cvActions/cvDataActions/cvDataActionTypes';
-import { fieldSelector } from '../../selectors/fieldSelector';
-import {ADD_FIELDS, REMOVE_FIELDS} from '../../actions/cvActions/fields/fieldsActionTypes';
-import { groupFields } from './cvServices';
+import {
+  ADD_FIELDS,
+  ADD_NEW_FIELD,
+  REMOVE_FIELDS,
+} from '../../actions/cvActions/cvDataActions/cvDataActionTypes';
+import { modalFieldsSchema } from '../../../pages/modal/schema/modalFields';
 
-const initialState = {};
+const initialState = { ...modalFieldsSchema };
 
 export const cvData = (state = initialState, { type, payload }) => {
   switch (type) {
     case ADD_FIELDS:
       return {
         ...state,
-        [payload.path] : groupFields(payload)
+        [payload.path]: state[payload.path].map(item => {
+          if (item.id === payload.id) {
+            return {
+              ...item,
+              fields: payload.value,
+            };
+          }
+
+          return item;
+        }),
       };
-    case REMOVE_FIELDS:
+
+    case ADD_NEW_FIELD:
       return {
         ...state,
-        ...state[payload.path].filter(field => field.id !== payload.id)
+        [payload]: [
+          ...state[payload],
+          ...modalFieldsSchema[payload].map(item => {
+            return {
+              ...item,
+              id: Math.max(...state[payload].map(item => item.id)) + 1,
+            };
+          }),
+        ],
       };
+
+    case REMOVE_FIELDS:
+      return { ...state };
 
     default:
       return state;
