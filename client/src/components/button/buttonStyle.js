@@ -3,28 +3,26 @@ import { theme } from '../../style/theme/theme';
 
 export const ButtonWrapper = styled.button`
   position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 16px;
-  width: 100%;
-  height: 56px;
-  background: ${theme.colors.white};
-  border: none;
-  font-size: 18px;
-  line-height: 24px;
-  margin-top: ${theme.offsets['5x']};
   cursor: pointer;
-  && svg {
-    width: 18px;
-    height: 18px;
+  padding: ${theme.buttons.padding};
+  font-size: ${theme.buttons.fontSize};
+  border-radius: ${theme.buttons.radius};
+  margin-left: 40px;
+  transition: 0.3s linear;
+
+  & svg {
+    width: ${theme.buttons.svg.width};
   }
-  && a {
+
+  & a {
     width: 100%;
     height: 100%;
     position: absolute;
   }
-  &&:hover {
-    background: radial-gradient(white, #dfd4d4);
+
+  &:hover {
+    transition: 0.3s linear;
+    box-shadow: inset 0 50px 115px 0 rgba(149, 255, 149, 0.5),
+      inset 0 -50px 1px 1px rgba(0, 0, 0, 0.2);
   }
 `;

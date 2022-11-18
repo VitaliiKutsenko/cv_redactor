@@ -7,8 +7,8 @@ export const $api = axios.create({
   withCredentials: true,
 });
 
-$api.interceptors.request.use(config => {
-  config.headers.Authorization = `Bearer ${localStorage.getItem('token')}`;
+$api.interceptors.request.use(async config => {
+  config.headers.Authorization = `Bearer ${localStorage.getItem('access_token')}`;
 
   return config;
 });

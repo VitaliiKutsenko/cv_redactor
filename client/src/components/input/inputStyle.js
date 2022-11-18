@@ -2,46 +2,67 @@ import styled from 'styled-components';
 import { theme } from '../../style/theme/theme';
 
 export const InputWrapper = styled.div`
-  max-width: 100%;
-  min-width: 200px;
-  font-family: 'Grotesk', serif;
   position: relative;
-  margin-right: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 
-  && label {
+  & label {
     font-size: 18px;
-    //line-height: 20px;
-    color: ${theme.colors.lightGray};
-  }
-  && input {
-    position: relative;
-    width: 100%;
-    border: none;
-    border-bottom: 2px solid rgba(148, 148, 148, 0.5);
-    background: none;
-    outline: none;
-    color: white;
-    font-size: 24px;
-    line-height: 30px;
-    //padding: 8px 0 8px 0;
+    color: black;
   }
 
-  && input.authFields {
-    //margin-bottom: 40px;
+  & .inputWrapper {
+    width: 50%;
+    display: flex;
+
+    & input {
+      margin: 10px;
+      width: 100%;
+      transition: 0.3s linear;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      position: relative;
+      background: white;
+      resize: none;
+      padding: 5px 10px 5px 10px;
+      font-size: 18px;
+      outline: none;
+      border: 1px solid rgba(0, 0, 0, 0.26);
+      border-radius: 5px;
+
+      &:hover {
+        transition: 0.3s linear;
+
+        box-shadow: inset 0px 0px 3px 1px rgba(177, 177, 177, 0.6);
+      }
+
+      &:focus {
+        transition: 0.3s linear;
+        box-shadow: inset 0px 0px 3px 1px rgba(151, 151, 151, 0.5);
+      }
+    }
+
+    & .buttonPass {
+      background: none;
+      border: none;
+      cursor: pointer;
+
+      &.show svg {
+        fill: rgba(0, 128, 0, 0.5);
+        width: 30px;
+      }
+
+      &.hide svg {
+        fill: rgba(255, 99, 71, 0.5);
+        width: 30px;
+      }
+    }
   }
 
-  && button {
-    background: none;
-    border: none;
-  }
-
-  && button svg {
-    transform: translate(-20px, -16px);
-    position: absolute;
-    width: 20px;
-    height: 16px;
-  }
-  && p {
+  & p {
     position: absolute;
     color: white;
     padding-top: 2px;

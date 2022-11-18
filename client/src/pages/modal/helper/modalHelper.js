@@ -15,3 +15,15 @@ export const randomColor = opacity => {
 
   return `rgba(${color()}, ${color()}, ${color()}, ${opacity})`;
 };
+
+export function debounce(func, timeout = 300) {
+  let timer;
+
+  return (...args) => {
+    clearTimeout(timer);
+
+    timer = setTimeout(() => {
+      func.apply(this, args);
+    }, timeout);
+  };
+}

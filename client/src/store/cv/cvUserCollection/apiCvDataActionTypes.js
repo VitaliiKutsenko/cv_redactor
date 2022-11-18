@@ -1,0 +1,3 @@
+export const GET_CV_DATA_SUCCESS = 'GET_CV_DATA_SUCCESS';
+export const GET_CV_DATA_ERROR = 'GET_CV_DATA_ERROR';
+export const GET_CV_DATA = 'GET_CV_DATA';

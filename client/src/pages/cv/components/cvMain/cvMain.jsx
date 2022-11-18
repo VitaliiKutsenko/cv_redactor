@@ -3,24 +3,37 @@ import { CvMainWrapper } from './cvMainStyle';
 import { AddBlock } from '../addBlock/addBlock';
 import { useDispatch, useSelector } from 'react-redux';
 import { CvCard } from '../cvCard/cvCard';
+import { selectAllCards, selectCards } from '../../../../selectors/cvSelectors';
+import { getAllUserFields } from '../../../../store/cv/cvAllUserFields/cvAllUserFieldsActions';
 
 export const CvMain = () => {
-  const store = useSelector(store => store?.cvData || []);
-  const [cardState, setCardState] = useState([]);
+  const addCardsTrigger = useSelector(selectCards);
+  const cvData = useSelector(selectAllCards);
+
+  const allUserDispatch = useDispatch();
+
+  console.log(cvData);
 
   useEffect(() => {
-    if (store) {
-      for (let field in store) {
-        store[field].map(item => {
-          const id = `${field}_${item.id}`;
-
-          setCardState(prev => [...prev, <CvCard key={id} id={item.id} item={item} />]);
-        });
-      }
+    if (addCardsTrigger) {
+      allUserDispatch(getAllUserFields());
     }
-  }, [store]);
+  }, [addCardsTrigger]);
 
-  console.log(cardState);
+  // console.log(cvCard);
 
-  return <CvMainWrapper>{cardState.map(item => item)}</CvMainWrapper>;
+  return (
+    <CvMainWrapper>
+      {
+        <div>
+          {' '}
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus ad aliquid animi
+          dolores eaque earum esse fuga incidunt ipsum iusto labore maxime modi officia omnis
+          perferendis perspiciatis quas, quos sunt, unde ut vel veritatis voluptates. Adipisci alias
+          at commodi expedita iste nostrum numquam officiis possimus quam rem sit voluptate,
+          voluptatibus!{' '}
+        </div>
+      }
+    </CvMainWrapper>
+  );
 };

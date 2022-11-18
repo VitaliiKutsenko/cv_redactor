@@ -8,8 +8,8 @@ export const CvWrapper = styled.div`
   display: grid;
   grid-gap: 10px;
   grid-template-columns: 35% auto;
-  //align-items: center;
-  //justify-content: center;
+
   padding: 10px;
-  background: linear-gradient(darkcyan, grey);
+  background: rgba(0, 0, 0, 0.5);
+  //background: linear-gradient(darkcyan, grey);
 `;

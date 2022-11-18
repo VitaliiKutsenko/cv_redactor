@@ -18,15 +18,26 @@ export const Input = ({ inputType, labelText, register, errors }) => {
   return (
     <InputWrapper>
       <label htmlFor={inputId}>{labelText}</label>
-      <input
-        className={labelText === 'Email' || labelText === 'Password' ? 'authFields' : 'textFields'}
-        id={inputId}
-        autoComplete="off"
-        type={(iconState && 'text') || inputType}
-        {...register(registerId)}
-      />
-      {inputType === 'password' && <button onClick={e => iconTrigger(e)}>{iconState ? <Hide /> : <Show />} </button>}
-      {errors[registerId] ? <p>{errors[registerId]?.message} </p> : <p></p>}
+      <div className="inputWrapper">
+        <input
+          className={
+            labelText === 'Email' || labelText === 'Password' ? 'authFields' : 'textFields'
+          }
+          id={inputId}
+          autoComplete="off"
+          type={(iconState && 'text') || inputType}
+          {...register(registerId)}
+        />
+        {inputType === 'password' && (
+          <button
+            className={`buttonPass ${!iconState ? 'hide' : 'show'}`}
+            onClick={e => iconTrigger(e)}
+          >
+            {iconState ? <Hide /> : <Show />}{' '}
+          </button>
+        )}
+        {errors[registerId] ? <p>{errors[registerId]?.message} </p> : <p></p>}
+      </div>
     </InputWrapper>
   );
 };
