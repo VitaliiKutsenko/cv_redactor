@@ -20,7 +20,7 @@ export const Login = () => {
     e.stopPropagation();
 
     if (!login) {
-      navigate('/sign-in');
+      navigate('/auth/sign-in');
     } else {
       setLogOut(prev => !prev);
     }

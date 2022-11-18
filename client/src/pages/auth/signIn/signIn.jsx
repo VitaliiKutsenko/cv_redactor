@@ -3,11 +3,12 @@ import { FormComponent } from '../../../components/formComponent/formComponent';
 import { signInFields } from './signInFields';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { setUser } from '../../../store/actions/authActions/auth/authActions';
+import { setUser } from '../../../store/auth/authLogin/loginActions/authActions';
 import { MessageWindow } from '../../../components/messageWindow/messageWindow';
 import { AuthWrapper } from '../authStyle';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '../../../components/button/button';
+import { CustomLink } from '../../../components/navLinks/customLink';
 
 export const SignIn = () => {
   const signInDispatch = useDispatch();
@@ -20,10 +21,6 @@ export const SignIn = () => {
     }
   }, [auth]);
 
-  const handleRegistration = () => {
-    navigate('/registration');
-  };
-
   return (
     <AuthWrapper>
       <FormComponent
@@ -34,8 +31,7 @@ export const SignIn = () => {
         onSubmit={data => signInDispatch(setUser(data))}
       >
         <div className="navigate-wrapper">
-          <Link to="/forgot-password">Forgot password?</Link>
-          <Button clickFn={handleRegistration}>Registration</Button>
+          <CustomLink to="/auth/forgot-password">Forgot password?</CustomLink>
         </div>
       </FormComponent>
       <MessageWindow content={auth} />

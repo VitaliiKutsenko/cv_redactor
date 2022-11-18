@@ -5,8 +5,6 @@ export const SelectMenuWrapper = styled.div`
   background: transparent;
   width: 100%;
   height: 100%;
-  //padding: 10px;
-
   & .select_list {
     display: flex;
     flex-direction: column;
@@ -17,43 +15,50 @@ export const SelectMenuWrapper = styled.div`
     width: 100%;
     height: 100%;
   }
+`;
+export const SelectTriggerWrapper = styled.li.attrs(props => {
+  return { theme: props.theme };
+})`
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  margin: 10px;
+  border-radius: 5px;
+  width: 90%;
+  font-size: 18px;
+  border: 1px solid rgba(206, 187, 187, 0.66);
+  cursor: pointer;
+  transition: 0.2s linear;
+  perspective: 600px;
+  overflow: hidden;
+  box-shadow: inset 1px 1px 1px 100px #f2f3f4;
 
-  & .select_lists {
-    position: relative;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    padding: 15px;
-    margin: 10px;
-    border-radius: 5px;
-    width: 90%;
-    font-size: 18px;
-    border: 1px solid rgba(206, 187, 187, 0.66);
-    background: white;
-    cursor: pointer;
+  & svg {
+    fill: rgba(0, 0, 0, 0.5);
+    width: 32px;
+    height: 32px;
+    opacity: 0;
+    transform: rotateY(180deg) translateX(-100px);
+    transition: 0.3s linear;
+  }
+
+  &.active {
+    transition: 0.3s linear;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.47);
+    box-shadow: inset 0 0 100px 1px ${props => props.theme || 'red'};
+
+    & svg {
+      transition: 0.3s linear;
+      opacity: 1;
+      transform: rotate(0deg) translateX(0);
+    }
+  }
+
+  &.hide:hover {
     transition: 0.2s linear;
-    //box-shadow: 1px 1px 1px 1px black;
-    &.active {
-      width: 100%;
-      //transform: translate(2px, -5px) scale(1.1, 1.1);
-    }
-
-    &.active:after {
-      transition: 0.2s linear;
-
-      position: absolute;
-      right: 0;
-      transform: translateX(7px) rotate(45deg);
-      content: '';
-      width: 20px;
-      height: 20px;
-      background: white;
-    }
-
-    &.hide:hover {
-      transition: 0.2s linear;
-      transform: translateX(5px);
-      box-shadow: -10px 10px 10px -5px #a0a0a0;
-    }
+    transform: translateX(10px);
   }
 `;

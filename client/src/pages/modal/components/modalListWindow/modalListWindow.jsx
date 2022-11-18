@@ -1,44 +1,59 @@
-import React, { useState } from 'react';
-import { ModalForm } from '../modalForm/modalForm';
+import React, { useEffect, useState } from 'react';
+import { ModalForm } from '../form/modalForm';
 
-import { useLocation } from 'react-router-dom';
+import { useLocation, Outlet } from 'react-router-dom';
 import { ModalListWindowWrapper } from './modalListWindowStyled';
 import { useDispatch, useSelector } from 'react-redux';
-import { addAdditionalField } from '../../../../store/actions/cvActions/cvDataActions/cvDataActions';
+import {
+  addAdditionalField,
+  removeAdditionalField,
+} from '../../../../store/localCvCards/cvDataActions/cvDataActions';
+import { getUserCardError, setUserCard } from '../../../../store/cv/cvUserCards/cvUserCardsActions';
+import { logPlugin } from '@babel/preset-env/lib/debug';
+import {
+  getAllUserFields,
+  getAllUserFieldsError,
+} from '../../../../store/cv/cvAllUserFields/cvAllUserFieldsActions';
 
 export const ModalListWindow = () => {
-  const { pathname, state } = useLocation();
-  const addFieldDispatch = useDispatch();
+  const {
+    pathname,
+    state: { theme, labelText },
+  } = useLocation();
 
   const path = pathname.split('/')[2];
-  const store = useSelector(store => store?.cvData || []);
+  const store = useSelector(store => store?.cvData[path] || []);
 
-  const [showForm, setShowForm] = useState(true);
+  const fieldDispatch = useDispatch();
 
-  const handleShowForm = e => {
-    setShowForm(prev => !prev);
+  const handleAddNewField = () => {
+    fieldDispatch(addAdditionalField(path));
   };
 
-  const handleFormValues = values => {
-    console.log(values);
-  };
-
-  const handleAdditionalField = () => {
-    addFieldDispatch(addAdditionalField(path));
+  const handleRemoveNewField = id => {
+    if (id > 1) {
+      fieldDispatch(
+        removeAdditionalField({
+          path,
+          id,
+        })
+      );
+    }
   };
 
   const renderForm = () => {
-    return store[path].map(({ id, fields }) => {
+    return store.map(({ id, fields }) => {
       return (
         <ModalForm
           key={id}
           id={id}
-          state={state}
+          theme={theme}
+          labelText={labelText}
           path={path}
-          handleAdditionalField={handleAdditionalField}
-          handleFormValues={handleFormValues}
-          onSubmit={event => console.log(event)}
+          onSubmit={event => fieldDispatch(setUserCard(event))}
           fieldsList={fields}
+          handleAdditionalField={handleAddNewField}
+          handleRemoveAdditionalField={handleRemoveNewField}
         />
       );
     });

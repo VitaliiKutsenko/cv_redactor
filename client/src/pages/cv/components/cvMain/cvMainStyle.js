@@ -9,5 +9,5 @@ export const CvMainWrapper = styled.main`
   border-radius: 10px;
   flex-direction: column;
 
-  //overflow-x: hidden;
+  overflow-x: hidden;
 `;

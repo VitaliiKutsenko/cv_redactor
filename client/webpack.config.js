@@ -77,14 +77,12 @@ const babelOptions = preset => {
 };
 
 const jsLoaders = () => {
-  const loaders = [
+  return [
     {
       loader: 'babel-loader',
       options: babelOptions(),
     },
   ];
-
-  return loaders;
 };
 
 module.exports = {

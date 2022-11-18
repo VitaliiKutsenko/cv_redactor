@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { AddBlockWrapper } from './addBlockStyle';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { ButtonForm } from '../../../modal/components/buttonForm/button';
+import { ButtonForm } from '../../../modal/components/buttons/formButton';
 
 export const AddBlock = props => {
   return (
     <AddBlockWrapper>
-      <ButtonForm {...props}>add block</ButtonForm>
+      <button {...props}>add block</button>
     </AddBlockWrapper>
   );
 };

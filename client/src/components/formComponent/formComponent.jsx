@@ -7,12 +7,11 @@ import { useForm } from 'react-hook-form';
 import {
   verifyPassword,
   verifyEmail,
-  UserVerification,
+  // UserVerification,
   verifyBaseData,
   verifyConfirmPassword,
 } from './services/validation';
 import PropTypes from 'prop-types';
-import { RegistrationWrapper } from '../../pages/auth/registration/registrationStyle';
 
 export const FormComponent = ({
   titleText,
@@ -31,14 +30,7 @@ export const FormComponent = ({
 
   const renderInput = inputs => {
     return inputs.map(input => {
-      return (
-        <Input
-          key={input.labelText}
-          {...input}
-          register={register}
-          errors={errors}
-        />
-      );
+      return <Input key={input.labelText} {...input} register={register} errors={errors} />;
     });
   };
 
@@ -82,33 +74,19 @@ export const FormComponent = ({
     onSubmit(inputField);
   };
 
-  const renderForm = () => {
-    return (
-      <>
-        <h1>{titleText}</h1>
-        <form onSubmit={handleSubmit(getSubmitData)}>
-          {renderInput(inputContent)}
+  return (
+    <PageWrapper>
+      <h3>{titleText}</h3>
+      <form onSubmit={handleSubmit(getSubmitData)}>
+        {renderInput(inputContent)}
+        <div className="form_footer">
           {children}
           <Button type="submit" {...props}>
             {buttonText}
-            <svg>
-              {' '}
-              <Arrow />
-            </svg>
           </Button>
-        </form>
-      </>
-    );
-  };
-
-  return (
-    <>
-      {titleText === 'Регистрация' ? (
-        <RegistrationWrapper>{renderForm()}</RegistrationWrapper>
-      ) : (
-        <PageWrapper>{renderForm()}</PageWrapper>
-      )}
-    </>
+        </div>
+      </form>
+    </PageWrapper>
   );
 };
 

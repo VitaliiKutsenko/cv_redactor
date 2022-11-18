@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 
-export const ModalWrapper = styled.div`
+export const ModalWrapper = styled.div.attrs(props => {
+  return { theme: props.theme };
+})`
   position: absolute;
   bottom: 0;
   width: 100%;
@@ -10,27 +12,26 @@ export const ModalWrapper = styled.div`
   align-items: center;
   background: rgba(160, 146, 146, 0.37);
   transition: 0.5s linear;
-  gap: 20px;
-  //padding: 10px;
+  gap: 10px;
 
   & .modal_list__content {
     position: relative;
-    width: 40%;
+    width: 30%;
+    min-width: 450px;
     height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    background: rgba(255, 255, 255, 0.69);
-    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.7);
     border-radius: 10px;
-    padding: 10px;
-    overflow: hidden;
+    //padding: 10px;
 
-    & .progressBar {
-      height: 10%;
+    & .outlet_wrapper {
       width: 100%;
-      background: #b8bdbd;
+      height: 100%;
+      overflow: hidden;
+      margin: 2px;
       border-radius: 10px;
     }
   }
@@ -41,9 +42,10 @@ export const ModalWrapper = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    background: rgba(255, 255, 255, 0.69);
-    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.5);
     border-radius: 10px;
+    margin-left: 10px;
+    overflow: hidden;
 
     & .modal_header {
       border-radius: 10px;
